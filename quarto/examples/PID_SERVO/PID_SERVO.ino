@@ -1,0 +1,29 @@
+#define SETPOINT 0.25
+
+void setup(void) {  
+  configureADC1(1,0,BIPOLAR_1250mV,getADC2); // Have ADC take measurement every 1us, ±1.25V range
+}
+
+void getADC1(void) {
+  static double integral = 0;
+  static double prev_adc = 0;
+  double newadc = readADC1_from_ISR(); //read ADC voltage
+  
+  double prop = (newadc-SETPOINT) * 1.975; //proportional
+  integral += (newadc - SETPOINT) * 0.01; // integral gain
+  double diff = ( newadc - prev_adc) * .00001; // turn diff down for accuracate BW measurement
+  double newdac = prop + integral + diff;
+  
+  writeDAC1(-newdac); //invert for negative feedback  
+  prev_adc = newadc; //store new adc value for differential calculation
+}
+
+void loop(void) {
+   static unsigned long lastrun = 0;    
+  
+  if (millis() > lastrun) { //Run once every 1000ms
+    lastrun = millis() + 1000;
+    toggleLEDGreen();
+    //Serial.println("This runs every second");
+  }
+}
