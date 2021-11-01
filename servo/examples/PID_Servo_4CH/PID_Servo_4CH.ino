@@ -1,8 +1,8 @@
 void setup(void) {  
-  configureADC1(4,0,BIPOLAR_1250mV,getADC1); // Have ADC take measurement every 4us, ±1.25V range
-  configureADC2(4,1,BIPOLAR_2500mV,getADC2); // Have ADC take measurement every 4us, ±2.5V range
-  configureADC2(4,2,BIPOLAR_5V,getADC3); // Have ADC take measurement every 4us, ±5V range
-  configureADC2(4,3,BIPOLAR_10V,getADC4); // Have ADC take measurement every 4us, ±10V range
+  configureADC(1,4,0,BIPOLAR_1250mV,getADC1); // Have ADC take measurement every 4us, ±1.25V range
+  configureADC(2,4,1,BIPOLAR_2500mV,getADC2); // Have ADC take measurement every 4us, ±2.5V range
+  configureADC(3,4,2,BIPOLAR_5V,getADC3); // Have ADC take measurement every 4us, ±5V range
+  configureADC(4,4,3,BIPOLAR_10V,getADC4); // Have ADC take measurement every 4us, ±10V range
 }
 
 void getADC1(void) {
@@ -17,7 +17,7 @@ void getADC1(void) {
   double diff = ( newadc - prev_adc) * .00001; // turn diff down for accuracate BW measurement
   double newdac = prop + integral + diff;
   
-  writeDAC1(-newdac); //invert for negative feedback  
+  writeDAC(1,-newdac); //invert for negative feedback  
   prev_adc = newadc; //store new adc value for differential calculation
 }
 
@@ -33,7 +33,7 @@ void getADC2(void) {
   double diff = ( newadc - prev_adc) * .00001; // turn diff down for accuracate BW measurement
   double newdac = prop + integral + diff;
   
-  writeDAC2(-newdac); //invert for negative feedback  
+  writeDAC(2,-newdac); //invert for negative feedback  
   prev_adc = newadc; //store new adc value for differential calculation
 }
 
@@ -50,7 +50,7 @@ void getADC3(void) {
   double diff = ( newadc - prev_adc) * .00001; // turn diff down for accuracate BW measurement
   double newdac = prop + integral + diff;
   
-  writeDAC3(-newdac); //invert for negative feedback  
+  writeDAC(3,-newdac); //invert for negative feedback  
   prev_adc = newadc; //store new adc value for differential calculation
 }
 
@@ -67,7 +67,7 @@ void getADC4(void) {
   double diff = ( newadc - prev_adc) * .00001; // turn diff down for accuracate BW measurement
   double newdac = prop + integral + diff;
   
-  writeDAC4(-newdac); //invert for negative feedback  
+  writeDAC(4,-newdac); //invert for negative feedback  
   prev_adc = newadc; //store new adc value for differential calculation
 }
 

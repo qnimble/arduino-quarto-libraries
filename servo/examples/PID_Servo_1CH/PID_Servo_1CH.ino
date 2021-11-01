@@ -1,5 +1,5 @@
 void setup(void) {  
-  configureADC1(1,0,BIPOLAR_1250mV,getADC1); // Have ADC take measurement every 1us, ±1.25V range
+  configureADC(1,1,0,BIPOLAR_1250mV,getADC1); // Have ADC take measurement every 1us, ±1.25V range
 }
 
 void getADC1(void) {
@@ -14,7 +14,7 @@ void getADC1(void) {
   double diff = ( newadc - prev_adc) * .00001; // turn diff down for accuracate BW measurement
   double newdac = prop + integral + diff;
   
-  writeDAC1(-newdac); //invert for negative feedback  
+  writeDAC(1,-newdac); //invert for negative feedback  
   prev_adc = newadc; //store new adc value for differential calculation
 }
 

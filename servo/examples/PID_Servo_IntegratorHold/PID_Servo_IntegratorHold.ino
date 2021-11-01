@@ -1,14 +1,14 @@
 bool servoActive;
 
 void setup(void) { 
-  configureADC1(1,0,BIPOLAR_1250mV,getADC1); // Have ADC take measurement every 1us, ±1.25V range
-  setTrigger1Direction(PIN_DIRECTION_INPUT); // Set trigger1 as input
-  servoActive = getTrigger1(); //set servoActive variable initially based on current trigger level
-  enableInterruptTrigger1(BOTH_EDGES,&servo_en); //Run servo_en function on rising and falling edge change of trigger 1
+  configureADC(1,1,0,BIPOLAR_1250mV,getADC1); // Have ADC take measurement every 1us, ±1.25V range
+  triggerMode(1, INPUT); // Set trigger1 as input
+  servoActive = triggerRead(1); //set servoActive variable initially based on trigger 1 level
+  enableInterruptTrigger(1,BOTH_EDGES,&servo_en); //Run servo_en function on rising and falling edge change of trigger 1
 }
 
 void servo_en(void) {
-  servoActive = getTrigger1();  
+  servoActive = triggerRead(1);  
 }
 
 void getADC1(void) {
@@ -24,7 +24,7 @@ void getADC1(void) {
     double diff = ( newadc - prev_adc) * .00001; // turn diff down for accuracate BW measurement
     double newdac = prop + integral + diff;
     
-    writeDAC1(-newdac); //invert for negative feedback  
+    writeDAC(1,-newdac); //invert for negative feedback  
   }
   prev_adc = newadc; //store new adc value for differential calculation
 }
