@@ -34,13 +34,13 @@ jobs:
           ls
           ls ~
           ls MyExamples
-          #ls ${{env.GITHUB_WORKSPACE}}
+          ls ${{env.GITHUB_WORKSPACE}}
           #git clone git@github.com:qnimble/quarto-examples.git /tmp/examples
           #cd /tmp/examples
           find -maxdepth 3  -mindepth 3 -type d -path '*examples*' -execdir mv '{}' ../ \;           
           rm LICENSE
-          cp -ra * ${{MyExamples
-          cd MyExamples
+          cp -ra * ${{env.GITHUB_WORKSPACE}}/MyExamples
+          cd ${{env.GITHUB_WORKSPACE}}/MyExamples
           git add -u
           git commit -m "Autocommit"
           git push
