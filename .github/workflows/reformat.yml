@@ -24,14 +24,14 @@ jobs:
           repository: qnimble/quarto-examples
           path: MyExamplesBad
           ref: main
-          ssh-key: ${{secrets.EXAMPLES_KEY}}
+          ssh-key: ${{secrets.DEPLOY_SSH_KEY}}
       - name: Push to Examples Repo
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
           USE_SSH: true
           GIT_USER: git
           DEPLOYMENT_BRANCH: main
-          KEY_SECRET: ${{secrets.EXAMPLES_KEY}}
+          KEY_SECRET: ${{secrets.DEPLOY_SSH_KEY}}
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan github.com >> ~/.ssh/known_hosts
