@@ -53,6 +53,7 @@ jobs:
           echo "did add"
           git status
           git commit -m "Autocommit"
+          git remote -v
           echo "Git commit done"
           git push --verbose
           
