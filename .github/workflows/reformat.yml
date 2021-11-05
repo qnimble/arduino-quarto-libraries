@@ -26,7 +26,7 @@ jobs:
           GIT_USER: git
           DEPLOYMENT_BRANCH: main
           KEY_SECRET: ${{secrets.DEPLOY_SSH_KEY}}          
-          SHA: ${{github.GITHUB_SHA}}
+          SHA: ${{github.SHA}}
           SOURCE: ${{github.REPOSITORY}}
           MESSAGE: ${{ github.event.head_commit.message }}
         run: |
