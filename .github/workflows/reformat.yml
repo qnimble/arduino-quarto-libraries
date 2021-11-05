@@ -19,12 +19,6 @@ jobs:
       - uses: actions/checkout@v2
         with:
           path: Source
-      - uses: actions/checkout@v2
-        with:
-          repository: qnimble/quarto-examples
-          path: MyExamplesBad
-          ref: main
-          ssh-key: ${{secrets.DEPLOY_SSH_KEY}}
       - name: Push to Examples Repo
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
@@ -32,6 +26,9 @@ jobs:
           GIT_USER: git
           DEPLOYMENT_BRANCH: main
           KEY_SECRET: ${{secrets.DEPLOY_SSH_KEY}}
+          SHA12: ${GITHUB_SHA::7}
+          SOURCE: ${GITHUB_REPOSITORY}
+          MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           mkdir -p ~/.ssh
           ssh-keyscan github.com >> ~/.ssh/known_hosts
@@ -45,39 +42,18 @@ jobs:
           
           git config --global user.email "actions@gihub.com"
           git config --global user.name "gh-actions"
-          echo "Got here"
-          cat ~/.ssh/id_rsa|head -n 1
-          ls
-          
-          
-          echo "Got here 32"
-          ls ~
-          echo "pwd"
-          pwd
-          echo "Got here 44"        
-          #echo ls ${{env.GITHUB_WORKSPACE}}
           git clone --verbose git@github.com:qnimble/quarto-examples.git MyExamples
-          #cd /tmp/examples
-          ls MyExamples
-          echo "Got here 55"
-          echo cd ${{env.GITHUB_WORKSPACE}}/Source
           cd Source
-          echo "After CD"
           find -maxdepth 3  -mindepth 3 -type d -path '*examples*' -execdir mv '{}' ../ \;           
-          rm LICENSE
-          echo cp -ra * ../MyExamples
+          rm LICENSE          
           cp -ra * ../MyExamples
           cd ../MyExamples
-          pwd
-          ls
+          git add -A          
           git status
-          git add -A
-          echo "did add"
-          git status
-          git commit -m "Autocommit"
-          git remote set-url origin git@github.com:qnimble/quarto-examples.git
+          git commit -m "Autocommit from $SOURCE $SHA12: $MESSAGE"
+          #git remote set-url origin git@github.com:qnimble/quarto-examples.git
           git remote -v
           echo "Git commit done"
-          git push --verbose
+          git push
           
               
