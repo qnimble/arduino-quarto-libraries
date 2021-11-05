@@ -42,19 +42,14 @@ jobs:
           
           git config --global user.email "actions@gihub.com"
           git config --global user.name "gh-actions"
-          git clone --verbose git@github.com:qnimble/quarto-examples.git MyExamples
-          echo "Done with clone"
+          git clone --verbose git@github.com:qnimble/quarto-examples.git MyExamples          
           cd Source
-          echo $SHA
-          echo ${SHA::7}          
-          echo "___"
           find -maxdepth 3  -mindepth 3 -type d -path '*examples*' -execdir mv '{}' ../ \;           
           rm LICENSE          
           cp -ra * ../MyExamples
           cd ../MyExamples
           git add -A
-          git status
-          echo "just ran git status"
+          git status          
           git commit -m "Autocommit from $SOURCE ${SHA::7}: $MESSAGE" || echo "Commit failed, probably emty, skipping"
           #git remote set-url origin git@github.com:qnimble/quarto-examples.git
           git remote -v
