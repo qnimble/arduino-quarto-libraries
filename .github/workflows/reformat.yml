@@ -25,11 +25,6 @@ jobs:
           path: MyExamples
           ref: main
           ssh-key: ${{secrets.SSH_DEPLOY_KEY}}
-      - name: push to examples
-        env:
-          USE_SSH: true
-          GIT_USER: git
-          DEPLOYMENT_BRANCH: main
         run: |
           git config --global user.email "actions@gihub.com"
           git config --global user.name "gh-actions"
