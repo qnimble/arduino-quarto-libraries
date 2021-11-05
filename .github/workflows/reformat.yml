@@ -26,8 +26,8 @@ jobs:
           GIT_USER: git
           DEPLOYMENT_BRANCH: main
           KEY_SECRET: ${{secrets.DEPLOY_SSH_KEY}}          
-          SHA: ${{env.GITHUB_SHA}}
-          SOURCE: ${{env.GITHUB_REPOSITORY}}
+          SHA: ${{github.GITHUB_SHA}}
+          SOURCE: ${{github.REPOSITORY}}
           MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           mkdir -p ~/.ssh
@@ -43,6 +43,7 @@ jobs:
           git config --global user.email "actions@gihub.com"
           git config --global user.name "gh-actions"
           git clone --verbose git@github.com:qnimble/quarto-examples.git MyExamples
+          echo "Done with close"
           cd Source
           echo $SHA
           $SHASHORT = `echo $SHA |cut -c1-8`
