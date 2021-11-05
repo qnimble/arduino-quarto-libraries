@@ -54,7 +54,7 @@ jobs:
           git status
           git commit -m "Autocommit"
           git remote -v
-          #git remote set-url origin git@github.com:qnimble/quarto-examples.git
+          git remote set-url origin git@github.com:qnimble/quarto-examples.git
           git remote -v
           echo "Git commit done"
           git push --verbose
