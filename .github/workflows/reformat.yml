@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-        with:
-          path: Source
   gh-release:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          path: Source
       - uses: actions/checkout@v2
         with:
           repository: qnimble/quarto-examples
