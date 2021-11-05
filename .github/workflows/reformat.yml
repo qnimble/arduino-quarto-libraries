@@ -52,10 +52,10 @@ jobs:
           rm LICENSE          
           cp -ra * ../MyExamples
           cd ../MyExamples
-          git add -A          
+          git add -A
           git status
           echo "just ran git status"
-          git commit -m "Autocommit from $SOURCE ${SHA::7}: $MESSAGE"
+          git commit -m "Autocommit from $SOURCE ${SHA::7}: $MESSAGE" || echo "Commit failed, probably emty, skipping"
           #git remote set-url origin git@github.com:qnimble/quarto-examples.git
           git remote -v
           echo "Git commit done"
