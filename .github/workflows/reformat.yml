@@ -28,7 +28,6 @@ jobs:
       - name: Push to Examples Repo
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-          DEPLOYMENT_BRANCH: main
           USE_SSH: true
           GIT_USER: git
           DEPLOYMENT_BRANCH: main          
