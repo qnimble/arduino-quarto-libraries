@@ -51,7 +51,12 @@ jobs:
           echo cp -ra * ../MyExamples
           cp -ra * ../MyExamples
           cd ../MyExamples
+          pwd
+          ls
+          git status
           git add -u
+          echo "did add"
+          git status
           git commit -m "Autocommit"
           git push
           
