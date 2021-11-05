@@ -18,25 +18,44 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          path: Source
+          path: Source2
       - uses: actions/checkout@v2
         with:
           repository: qnimble/quarto-examples
-          path: MyExamples
+          path: MyExamplesBad
           ref: main
           ssh-key: ${{secrets.SSH_DEPLOY_KEY}}
-      -  run: |
+      - name: Push to Examples Repo
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+          DEPLOYMENT_BRANCH: main
+          USE_SSH: true
+          GIT_USER: git
+          DEPLOYMENT_BRANCH: main          
+       run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          echo "${{ secrets.GH_PAGES_DEPLOY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          cat <<EOT >> ~/.ssh/config
+          Host github.com
+          HostName github.com
+          IdentityFile ~/.ssh/id_rsa
+          EOT
+          
           git config --global user.email "actions@gihub.com"
           git config --global user.name "gh-actions"
           echo "Got here"
           ls
+          
+          
           echo "Got here 32"
           ls ~
           echo "Got here 44"
           ls MyExamples
           echo "Got here 55"
           echo ls ${{env.GITHUB_WORKSPACE}}
-          #git clone git@github.com:qnimble/quarto-examples.git /tmp/examples
+          git clone git@github.com:qnimble/quarto-examples.git MyExamples
           #cd /tmp/examples
           echo cd ${{env.GITHUB_WORKSPACE}}/Source
           cd Source
