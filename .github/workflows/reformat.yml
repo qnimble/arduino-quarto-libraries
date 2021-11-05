@@ -32,7 +32,7 @@ jobs:
           USE_SSH: true
           GIT_USER: git
           DEPLOYMENT_BRANCH: main          
-       run: |
+        run: |
           mkdir -p ~/.ssh
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           echo "${{ secrets.GH_PAGES_DEPLOY }}" > ~/.ssh/id_rsa
