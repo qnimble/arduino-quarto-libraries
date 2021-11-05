@@ -26,6 +26,7 @@ jobs:
           GIT_USER: git
           DEPLOYMENT_BRANCH: main
           KEY_SECRET: ${{secrets.DEPLOY_SSH_KEY}}          
+          SHA: ${{env.GITHUB_SHA}}
           SOURCE: ${{env.GITHUB_REPOSITORY}}
           MESSAGE: ${{ github.event.head_commit.message }}
         run: |
@@ -43,16 +44,17 @@ jobs:
           git config --global user.name "gh-actions"
           git clone --verbose git@github.com:qnimble/quarto-examples.git MyExamples
           cd Source
+          echo $SHA
+          $SHASHORT = `echo $SHA |cut -c1-8`
           echo $SHA12
-          $SHA12 = `echo $SHA12 |cut -c1-8`
-          echo $SHA12
+          echo "___"
           find -maxdepth 3  -mindepth 3 -type d -path '*examples*' -execdir mv '{}' ../ \;           
           rm LICENSE          
           cp -ra * ../MyExamples
           cd ../MyExamples
           git add -A          
           git status
-          git commit -m "Autocommit from $SOURCE ${GITHUB_SHA::8} $MESSAGE"
+          git commit -m "Autocommit from $SOURCE $SHASHORT $MESSAGE"
           #git remote set-url origin git@github.com:qnimble/quarto-examples.git
           git remote -v
           echo "Git commit done"
