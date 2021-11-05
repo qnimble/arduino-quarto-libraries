@@ -1,0 +1,59 @@
+name: documentation
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  checks:
+    if: github.event_name != 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+  gh-release:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          path: Source
+      - name: Push to Examples Repo
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+          USE_SSH: true
+          GIT_USER: git
+          DEPLOYMENT_BRANCH: main
+          KEY_SECRET: ${{secrets.DEPLOY_SSH_KEY}}          
+          SHA: ${{github.SHA}}
+          SOURCE: ${{github.REPOSITORY}}
+          MESSAGE: ${{ github.event.head_commit.message }}
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          echo "$KEY_SECRET" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          cat <<EOT >> ~/.ssh/config
+          Host github.com
+          HostName github.com
+          IdentityFile ~/.ssh/id_rsa
+          EOT
+          
+          git config --global user.email "actions@gihub.com"
+          git config --global user.name "gh-actions"
+          git clone --verbose git@github.com:qnimble/quarto-examples.git MyExamples          
+          cd Source
+          find -maxdepth 3  -mindepth 3 -type d -path '*examples*' -execdir mv '{}' ../ \;           
+          rm LICENSE          
+          cp -ra * ../MyExamples
+          cd ../MyExamples
+          git add -A
+          git status          
+          git commit -m "Autocommit from $SOURCE ${SHA::7}: $MESSAGE" || echo "Commit failed, probably emty, skipping"
+          #git remote set-url origin git@github.com:qnimble/quarto-examples.git
+          git remote -v
+          echo "Git commit done"
+          git push
+          
+              
