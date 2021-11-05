@@ -17,10 +17,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
         with:
           repository: qnimble/quarto-examples
           path: ~/Examples
+          ref: main
+          ssh-key: ${{secrets.DEPLOY_SSH_KEY}}
       - name: Add key to allow access to repository
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
