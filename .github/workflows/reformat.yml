@@ -34,7 +34,7 @@ jobs:
           ls
           ls ~
           ls MyExamples
-          ls ${{env.GITHUB_WORKSPACE}}
+          #ls ${{env.GITHUB_WORKSPACE}}
           #git clone git@github.com:qnimble/quarto-examples.git /tmp/examples
           #cd /tmp/examples
           find -maxdepth 3  -mindepth 3 -type d -path '*examples*' -execdir mv '{}' ../ \;           
