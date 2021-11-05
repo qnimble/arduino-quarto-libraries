@@ -50,12 +50,14 @@ jobs:
           
           echo "Got here 32"
           ls ~
-          echo "Got here 44"
-          ls MyExamples
-          echo "Got here 55"
-          echo ls ${{env.GITHUB_WORKSPACE}}
+          echo "pwd"
+          pwd
+          echo "Got here 44"        
+          #echo ls ${{env.GITHUB_WORKSPACE}}
           git clone git@github.com:qnimble/quarto-examples.git MyExamples
           #cd /tmp/examples
+          ls MyExamples
+          echo "Got here 55"
           echo cd ${{env.GITHUB_WORKSPACE}}/Source
           cd Source
           echo "After CD"
