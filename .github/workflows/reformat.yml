@@ -54,7 +54,7 @@ jobs:
           pwd
           ls
           git status
-          git add -u
+          git add -A
           echo "did add"
           git status
           git commit -m "Autocommit"
