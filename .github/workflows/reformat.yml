@@ -26,8 +26,8 @@ jobs:
           GIT_USER: git
           DEPLOYMENT_BRANCH: main
           KEY_SECRET: ${{secrets.DEPLOY_SSH_KEY}}
-          SHA12: ${GITHUB_SHA::7}
-          SOURCE: ${GITHUB_REPOSITORY}
+          SHA12: ${{GITHUB_SHA::7}}
+          SOURCE: ${{GITHUB_REPOSITORY}}
           MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           mkdir -p ~/.ssh
