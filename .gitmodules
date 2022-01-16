@@ -3,7 +3,7 @@
 	url = https://github.com/PaulStoffregen/SD.git
 [submodule "SPI"]
 	path = SPI
-	url = https://github.com/PaulStoffregen/SPI.git
+	url = https://github.com/qnimble/SPI.git
 [submodule "SdFat"]
 	path = SdFat
 	url = https://github.com/PaulStoffregen/SdFat.git
