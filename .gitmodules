@@ -7,3 +7,6 @@
 [submodule "SdFat"]
 	path = SdFat
 	url = https://github.com/PaulStoffregen/SdFat.git
+[submodule "Time"]
+	path = Time
+	url = https://github.com/PaulStoffregen/Time.git
