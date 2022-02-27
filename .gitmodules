@@ -1,6 +1,6 @@
 [submodule "SD"]
 	path = SD
-	url = https://github.com/PaulStoffregen/SD.git
+	url = https://github.com/qnimble/SD.git
 [submodule "SPI"]
 	path = SPI
 	url = https://github.com/qnimble/SPI.git
