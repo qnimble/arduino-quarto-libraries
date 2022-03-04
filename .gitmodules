@@ -9,4 +9,7 @@
 	url = https://github.com/qnimble/SdFat.git
 [submodule "Time"]
 	path = Time
-	url = https://github.com/PaulStoffregen/Time.git
+	url = https://github.com/qnimble/Time.git
+[submodule "RTClib"]
+	path = RTClib
+	url = https://github.com/qnimble/RTClib.git
