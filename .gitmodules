@@ -1,15 +1,20 @@
 [submodule "SD"]
 	path = SD
 	url = https://github.com/qnimble/SD.git
+	branch = fork
 [submodule "SPI"]
 	path = SPI
 	url = https://github.com/qnimble/SPI.git
+	branch = NoExamples
 [submodule "SdFat"]
 	path = SdFat
 	url = https://github.com/qnimble/SdFat.git
+	branch = main
 [submodule "Time"]
 	path = Time
 	url = https://github.com/qnimble/Time.git
+	branch = QuartoExamples
 [submodule "RTClib"]
 	path = RTClib
 	url = https://github.com/qnimble/RTClib.git
+	branch = Minimal
