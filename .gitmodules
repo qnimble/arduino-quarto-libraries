@@ -22,3 +22,6 @@
 	path = qCommand
 	url = https://github.com/qnimble/qCommand.git
 	branch = main
+[submodule "qProtothreads"]
+	path = qProtothreads
+	url = git@github.com:qnimble/arduino-qprotothreads.git
