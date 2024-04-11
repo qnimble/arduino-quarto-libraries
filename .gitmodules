@@ -25,3 +25,30 @@
 [submodule "qProtothreads"]
 	path = qProtothreads
 	url = git@github.com:qnimble/arduino-qprotothreads.git
+[submodule "MsgPacketizer"]
+	path = MsgPacketizer
+	url = https://github.com/hideakitai/MsgPacketizer.git
+[submodule "Packetizer"]
+	path = Packetizer
+	url = https://github.com/hideakitai/Packetizer.git
+[submodule "MsgPack"]
+	path = MsgPack
+	url = https://github.com/hideakitai/MsgPack.git
+[submodule "ArxContainer"]
+	path = ArxContainer
+	url = https://github.com/hideakitai/ArxContainer.git
+[submodule "ArxTypeTraits"]
+	path = ArxTypeTraits
+	url = https://github.com/hideakitai/ArxTypeTraits.git
+[submodule "ArxSmartPtr"]
+	path = ArxSmartPtr
+	url = https://github.com/hideakitai/ArxSmartPtr.git
+[submodule "CRCx"]
+	path = CRCx
+	url = https://github.com/hideakitai/CRCx.git
+[submodule "FastCRC"]
+	path = FastCRC
+	url = https://github.com/FrankBoesing/FastCRC.git
+[submodule "DebugLog"]
+	path = DebugLog
+	url = https://github.com/hideakitai/DebugLog.git
