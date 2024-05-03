@@ -25,3 +25,9 @@
 [submodule "qProtothreads"]
 	path = qProtothreads
 	url = git@github.com:qnimble/arduino-qprotothreads.git
+[submodule "FastCRC"]
+	path = FastCRC
+	url = https://github.com/FrankBoesing/FastCRC.git
+[submodule "CWPack"]
+	path = CWPack
+	url = git@github.com:clwi/CWPack.git
