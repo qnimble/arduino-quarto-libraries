@@ -201,6 +201,7 @@ void init_stream_unpack_context (stream_unpack_context* suc, unsigned long initi
     suc->buffer_length = buffer_length;
 
     cw_unpack_context_init((cw_unpack_context*)suc, buffer, buffer_length, &handle_stream_unpack_underflow);
+    suc->uc.end = suc->uc.start; // start empty since length now set by buffer_length
 }
 
 
