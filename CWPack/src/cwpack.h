@@ -47,6 +47,11 @@
 #define CWP_RC_WRONG_TIMESTAMP_LENGTH   -12
 
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 
 /*******************************   P A C K   **********************************/
 
@@ -306,5 +311,9 @@ void cw_unpack_next (cw_unpack_context* unpack_context);
 void cw_skip_items (cw_unpack_context* unpack_context, long item_count);
 cwpack_item_types cw_look_ahead (cw_unpack_context* unpack_context);
 
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif  /* CWPack_H__ */

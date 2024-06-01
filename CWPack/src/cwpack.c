@@ -161,8 +161,14 @@ void cw_pack_float(cw_pack_context* pack_context, float f)
     if (pack_context->return_code)
         return;
 
-    uint32_t tmp = *((uint32_t*)&f);
-    tryMove4(0xca,tmp);
+    union { 
+        float f;
+        uint32_t u;
+    } data;
+
+    data.f = f;    
+    tryMove4(0xca,data.u);
+    
 }
 
 
@@ -171,8 +177,13 @@ void cw_pack_double(cw_pack_context* pack_context, double d)
     if (pack_context->return_code)
         return;
 
-    uint64_t tmp = *((uint64_t*)&d);
-    tryMove8(0xcb,tmp);
+    union { 
+        double d;
+        uint64_t u;
+    } data;
+
+    data.d = d;
+    tryMove8(0xcb,data.u);
 }
 
 
@@ -546,7 +557,15 @@ void cw_unpack_next (cw_unpack_context* unpack_context)
         case 0xca:  unpack_context->item.type = CWP_ITEM_FLOAT;                 // float
                     cw_unpack_assert_space(4);
                     cw_load32(p);
-                    unpack_context->item.as.real = *(float*)&tmpu32;     return;
+                    //use union to avoid compiler warnings about strict aliasing
+                    union {
+                        float f;
+                        uint32_t u;                        
+                    } dat;
+
+                    dat.u = tmpu32;
+                    //unpack_context->item.as.real = *(float*)&tmpu32;     return;
+                    unpack_context->item.as.real = dat.f;     return;                    
         case 0xcb:  getDDItem8(CWP_ITEM_DOUBLE);                         return;  // double
         case 0xcc:  getDDItem1(CWP_ITEM_POSITIVE_INTEGER, u64, uint8_t); return;  // unsigned int  8
         case 0xcd:  getDDItem2(CWP_ITEM_POSITIVE_INTEGER, u64, uint16_t); return; // unsigned int 16

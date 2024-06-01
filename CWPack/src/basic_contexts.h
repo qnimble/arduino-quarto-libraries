@@ -26,7 +26,12 @@
 #include <stdio.h>
 #include "cwpack.h"
 
-#include <Stream.h>
+
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
 /*****************************************  DYNAMIC MEMORY PACK CONTEXT  ************************/
 
@@ -36,9 +41,9 @@ typedef struct
 } dynamic_memory_pack_context;
 
 
-void init_dynamic_memory_pack_context (cw_pack_context* dmpc, unsigned long initial_buffer_length);
+void init_dynamic_memory_pack_context (dynamic_memory_pack_context* dmpc, unsigned long initial_buffer_length);
 
-void free_dynamic_memory_pack_context(cw_pack_context* dmpc);
+void free_dynamic_memory_pack_context(dynamic_memory_pack_context* dmpc);
 
 
 
@@ -47,11 +52,12 @@ void free_dynamic_memory_pack_context(cw_pack_context* dmpc);
 typedef struct
 {
     cw_pack_context pc;
-    Stream* stream;
+    FILE*           file;
 } stream_pack_context;
 
 
-void init_stream_pack_context (stream_pack_context* spc, unsigned long initial_buffer_length, Stream* stream);
+void init_stream_pack_context (stream_pack_context* spc, unsigned long initial_buffer_length, FILE* file);
+
 void terminate_stream_pack_context(stream_pack_context* spc);
 
 
@@ -62,11 +68,11 @@ typedef struct
 {
     cw_unpack_context   uc;
     unsigned long       buffer_length;
-    Stream*             stream;
+    FILE*               file;
 } stream_unpack_context;
 
 
-void init_stream_unpack_context (stream_unpack_context* suc, unsigned long initial_buffer_length, Stream* stream);
+void init_stream_unpack_context (stream_unpack_context* suc, unsigned long initial_buffer_length, FILE* file);
 
 void terminate_stream_unpack_context(stream_unpack_context* suc);
 
@@ -113,5 +119,10 @@ void terminate_file_unpack_context(file_unpack_context* suc);
 
 
 /*****************************************  E P I L O G U E  **********************************/
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* basic_contexts_h */
