@@ -52,17 +52,17 @@ static int handle_memory_pack_overflow(struct cw_pack_context* pc, unsigned long
 }
 
 
-void init_dynamic_memory_pack_context (cw_pack_context* pc, unsigned long initial_buffer_length)
+void init_dynamic_memory_pack_context (dynamic_memory_pack_context* dmpc, unsigned long initial_buffer_length)
 {
     unsigned long buffer_length = (initial_buffer_length > 0 ? initial_buffer_length : 1024);
     void *buffer = malloc (buffer_length);
     if (!buffer)
     {
-        pc->return_code = CWP_RC_MALLOC_ERROR;
+        dmpc->pc.return_code = CWP_RC_MALLOC_ERROR;
         return;
     }
 
-    cw_pack_context_init(pc, buffer, buffer_length, &handle_memory_pack_overflow);
+    cw_pack_context_init((cw_pack_context*)dmpc, buffer, buffer_length, &handle_memory_pack_overflow);
 }
 
 
@@ -169,21 +169,23 @@ static int handle_stream_unpack_underflow(struct cw_unpack_context* uc, unsigned
             suc->buffer_length = 2 * suc->buffer_length;
 
         void *new_buffer = realloc (uc->start, suc->buffer_length);
-        if (!new_buffer) {
+        if (!new_buffer)
             return CWP_RC_BUFFER_UNDERFLOW;
-        }
+
         uc->start = (uint8_t*)new_buffer;
     }
     uc->current = uc->start;
     uc->end = uc->start + remains;
-
-    if  ( (uint) suc->stream->available() < more - remains) {
-        //Should wait for more data here instead of error....
+    //#warning broken, need to handle underflow
+    unsigned long newBytes = suc->buffer_length - remains;
+    if  ( (uint) suc->stream->available() < newBytes) {
         return CWP_RC_END_OF_INPUT;
     }
 
-    unsigned long l = suc->stream->readBytes(uc->current+remains,more - remains);
+    //unsigned long l = fread(uc->end, 1, suc->buffer_length - remains, suc->file);    
+    unsigned long l = suc->stream->readBytes(uc->current,newBytes);    
     uc->end += l;
+
     return CWP_RC_OK;
 }
 
@@ -200,8 +202,7 @@ void init_stream_unpack_context (stream_unpack_context* suc, unsigned long initi
     suc->stream = stream;
     suc->buffer_length = buffer_length;
 
-    cw_unpack_context_init((cw_unpack_context*)suc, buffer, buffer_length, &handle_stream_unpack_underflow);
-    suc->uc.end = suc->uc.start; // start empty since length now set by buffer_length
+    cw_unpack_context_init((cw_unpack_context*)suc, buffer, 0, &handle_stream_unpack_underflow);
 }
 
 

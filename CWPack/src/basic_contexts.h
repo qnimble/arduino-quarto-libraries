@@ -26,12 +26,7 @@
 #include <stdio.h>
 #include "cwpack.h"
 
-
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+#include <Stream.h>
 
 /*****************************************  DYNAMIC MEMORY PACK CONTEXT  ************************/
 
@@ -52,11 +47,11 @@ void free_dynamic_memory_pack_context(dynamic_memory_pack_context* dmpc);
 typedef struct
 {
     cw_pack_context pc;
-    size_t (*file)(const uint8_t*, size_t );
+    Stream* stream;
 } stream_pack_context;
 
 
-void init_stream_pack_context (stream_pack_context* spc, unsigned long initial_buffer_length, size_t (*file)(const uint8_t*, size_t));
+void init_stream_pack_context (stream_pack_context* spc, unsigned long initial_buffer_length, Stream* stream);
 void terminate_stream_pack_context(stream_pack_context* spc);
 
 
@@ -67,11 +62,11 @@ typedef struct
 {
     cw_unpack_context   uc;
     unsigned long       buffer_length;
-    size_t (*file)(const uint8_t*, size_t );
+    Stream*             stream;
 } stream_unpack_context;
 
 
-void init_stream_unpack_context (stream_unpack_context* suc, unsigned long initial_buffer_length, size_t (*file)(const uint8_t*, size_t));
+void init_stream_unpack_context (stream_unpack_context* suc, unsigned long initial_buffer_length, Stream* stream);
 
 void terminate_stream_unpack_context(stream_unpack_context* suc);
 
@@ -118,10 +113,5 @@ void terminate_file_unpack_context(file_unpack_context* suc);
 
 
 /*****************************************  E P I L O G U E  **********************************/
-
-#ifdef __cplusplus
-}
-#endif
-
 
 #endif /* basic_contexts_h */
