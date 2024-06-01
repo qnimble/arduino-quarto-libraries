@@ -29,5 +29,5 @@
 	path = FastCRC
 	url = https://github.com/FrankBoesing/FastCRC.git
 [submodule "CWPack"]
-	path = CWPack
+	path = CWPackOld
 	url = git@github.com:clwi/CWPack.git
