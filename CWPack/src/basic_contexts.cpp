@@ -52,17 +52,17 @@ static int handle_memory_pack_overflow(struct cw_pack_context* pc, unsigned long
 }
 
 
-void init_dynamic_memory_pack_context (dynamic_memory_pack_context* dmpc, unsigned long initial_buffer_length)
+void init_dynamic_memory_pack_context (cw_pack_context* pc, unsigned long initial_buffer_length)
 {
     unsigned long buffer_length = (initial_buffer_length > 0 ? initial_buffer_length : 1024);
     void *buffer = malloc (buffer_length);
     if (!buffer)
     {
-        dmpc->pc.return_code = CWP_RC_MALLOC_ERROR;
+        pc->return_code = CWP_RC_MALLOC_ERROR;
         return;
     }
 
-    cw_pack_context_init((cw_pack_context*)dmpc, buffer, buffer_length, &handle_memory_pack_overflow);
+    cw_pack_context_init(pc, buffer, buffer_length, &handle_memory_pack_overflow);
 }
 
 

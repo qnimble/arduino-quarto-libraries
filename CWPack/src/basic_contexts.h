@@ -36,9 +36,9 @@ typedef struct
 } dynamic_memory_pack_context;
 
 
-void init_dynamic_memory_pack_context (dynamic_memory_pack_context* dmpc, unsigned long initial_buffer_length);
+void init_dynamic_memory_pack_context (cw_pack_context* dmpc, unsigned long initial_buffer_length);
 
-void free_dynamic_memory_pack_context(dynamic_memory_pack_context* dmpc);
+void free_dynamic_memory_pack_context(cw_pack_context* dmpc);
 
 
 
