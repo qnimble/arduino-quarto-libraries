@@ -52,12 +52,11 @@ void free_dynamic_memory_pack_context(dynamic_memory_pack_context* dmpc);
 typedef struct
 {
     cw_pack_context pc;
-    FILE*           file;
+    size_t (*file)(const uint8_t*, size_t );
 } stream_pack_context;
 
 
-void init_stream_pack_context (stream_pack_context* spc, unsigned long initial_buffer_length, FILE* file);
-
+void init_stream_pack_context (stream_pack_context* spc, unsigned long initial_buffer_length, size_t (*file)(const uint8_t*, size_t));
 void terminate_stream_pack_context(stream_pack_context* spc);
 
 
@@ -68,11 +67,11 @@ typedef struct
 {
     cw_unpack_context   uc;
     unsigned long       buffer_length;
-    FILE*               file;
+    size_t (*file)(const uint8_t*, size_t );
 } stream_unpack_context;
 
 
-void init_stream_unpack_context (stream_unpack_context* suc, unsigned long initial_buffer_length, FILE* file);
+void init_stream_unpack_context (stream_unpack_context* suc, unsigned long initial_buffer_length, size_t (*file)(const uint8_t*, size_t));
 
 void terminate_stream_unpack_context(stream_unpack_context* suc);
 

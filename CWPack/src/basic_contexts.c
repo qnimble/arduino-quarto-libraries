@@ -84,12 +84,16 @@ static int flush_stream_pack_context(struct cw_pack_context* pc)
     unsigned long contains = (unsigned long)(pc->current - pc->start);
     if (contains)
     {
-        unsigned long rc = fwrite(pc->start, contains, 1, spc->file);
-        if (rc != 1)
-        {
-            pc->err_no = ferror(spc->file);
+        //unsigned long rc = fwrite(pc->start, contains, 1, spc->file);
+        size_t written = spc->file(pc->start,contains);
+        if (written != contains) {            
             return CWP_RC_ERROR_IN_HANDLER;
         }
+        //if (rc != 1)
+        //{
+        //    pc->err_no = ferror(spc->file);
+        //    return CWP_RC_ERROR_IN_HANDLER;
+        //}
     }
     return CWP_RC_OK;
 }
@@ -120,7 +124,7 @@ static int handle_stream_pack_overflow(struct cw_pack_context* pc, unsigned long
 }
 
 
-void init_stream_pack_context (stream_pack_context* spc, unsigned long initial_buffer_length, FILE* file)
+void init_stream_pack_context (stream_pack_context* spc, unsigned long initial_buffer_length, size_t (*file)(const uint8_t*, size_t)   )
 {
     unsigned long buffer_length = (initial_buffer_length > 0 ? initial_buffer_length : 4096);
     void *buffer = malloc (buffer_length);
@@ -172,14 +176,16 @@ static int handle_stream_unpack_underflow(struct cw_unpack_context* uc, unsigned
     }
     uc->current = uc->start;
     uc->end = uc->start + remains;
-    unsigned long l = fread(uc->end, 1, suc->buffer_length - remains, suc->file);
-    if (!l)
-    {
-        if (feof(suc->file))
-            return CWP_RC_END_OF_INPUT;
-        suc->uc.err_no = ferror(suc->file);
-        return CWP_RC_ERROR_IN_HANDLER;
-    }
+    #warning broken, need to handle underflow
+    unsigned long l = suc->buffer_length - remains;
+    //unsigned long l = fread(uc->end, 1, suc->buffer_length - remains, suc->file);    
+    //if (!l)
+    //{
+    //    if (feof(suc->file))
+    //        return CWP_RC_END_OF_INPUT;
+    //    suc->uc.err_no = ferror(suc->file);
+    //    return CWP_RC_ERROR_IN_HANDLER;
+    //}
 
     uc->end += l;
 
@@ -187,7 +193,7 @@ static int handle_stream_unpack_underflow(struct cw_unpack_context* uc, unsigned
 }
 
 
-void init_stream_unpack_context (stream_unpack_context* suc, unsigned long initial_buffer_length, FILE* file)
+void init_stream_unpack_context (stream_unpack_context* suc, unsigned long initial_buffer_length, size_t (*file)(const uint8_t*, size_t))
 {
     unsigned long buffer_length = (initial_buffer_length > 0? initial_buffer_length : 1024);
     void *buffer = malloc (buffer_length);
