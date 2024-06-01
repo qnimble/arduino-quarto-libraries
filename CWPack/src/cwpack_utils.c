@@ -136,8 +136,8 @@ int64_t cw_unpack_next_signed64 (cw_unpack_context* unpack_context)
             return unpack_context->item.as.i64;
         else
         {
-            unpack_context->return_code = CWP_RC_VALUE_ERROR;
-            return 0;
+            unpack_context->return_code = CWP_RC_COERCED_VALUE;
+            return INT64_MAX;
         }
     }
 
@@ -161,8 +161,8 @@ int32_t cw_unpack_next_signed32 (cw_unpack_context* unpack_context)
             return (int)unpack_context->item.as.i64;
         else
         {
-            unpack_context->return_code = CWP_RC_VALUE_ERROR;
-            return 0;
+            unpack_context->return_code = CWP_RC_COERCED_VALUE;
+            return INT32_MAX;
         }
     }
     if (unpack_context->item.type == CWP_ITEM_NEGATIVE_INTEGER)
@@ -171,8 +171,8 @@ int32_t cw_unpack_next_signed32 (cw_unpack_context* unpack_context)
             return (int)unpack_context->item.as.i64;
         else
         {
-            unpack_context->return_code = CWP_RC_VALUE_ERROR;
-            return 0;
+            unpack_context->return_code = CWP_RC_COERCED_VALUE;
+            return INT32_MIN;
         }
     }
 
@@ -193,8 +193,8 @@ int16_t cw_unpack_next_signed16 (cw_unpack_context* unpack_context)
             return (int16_t)unpack_context->item.as.i64;
         else
         {
-            unpack_context->return_code = CWP_RC_VALUE_ERROR;
-            return 0;
+            unpack_context->return_code = CWP_RC_COERCED_VALUE;
+            return INT16_MAX;
         }
     }
     if (unpack_context->item.type == CWP_ITEM_NEGATIVE_INTEGER)
@@ -203,8 +203,8 @@ int16_t cw_unpack_next_signed16 (cw_unpack_context* unpack_context)
             return (int16_t)unpack_context->item.as.i64;
         else
         {
-            unpack_context->return_code = CWP_RC_VALUE_ERROR;
-            return 0;
+            unpack_context->return_code = CWP_RC_COERCED_VALUE;
+            return INT16_MIN;
         }
     }
 
@@ -225,8 +225,8 @@ int8_t cw_unpack_next_signed8 (cw_unpack_context* unpack_context)
             return (int8_t)unpack_context->item.as.i64;
         else
         {
-            unpack_context->return_code = CWP_RC_VALUE_ERROR;
-            return 0;
+            unpack_context->return_code = CWP_RC_COERCED_VALUE;
+            return INT8_MAX;
         }
     }
     if (unpack_context->item.type == CWP_ITEM_NEGATIVE_INTEGER)
@@ -235,8 +235,8 @@ int8_t cw_unpack_next_signed8 (cw_unpack_context* unpack_context)
             return (int8_t)unpack_context->item.as.i64;
         else
         {
-            unpack_context->return_code = CWP_RC_VALUE_ERROR;
-            return 0;
+            unpack_context->return_code = CWP_RC_COERCED_VALUE;
+            return INT8_MIN;
         }
     }
 
@@ -274,8 +274,8 @@ uint32_t cw_unpack_next_unsigned32 (cw_unpack_context* unpack_context)
             return (uint32_t)unpack_context->item.as.u64;
         else
         {
-            unpack_context->return_code = CWP_RC_VALUE_ERROR;
-            return 0;
+            unpack_context->return_code = CWP_RC_COERCED_VALUE;
+            return UINT32_MAX;
         }
     }
 
@@ -296,8 +296,8 @@ uint16_t cw_unpack_next_unsigned16 (cw_unpack_context* unpack_context)
             return (uint16_t)unpack_context->item.as.u64;
         else
         {
-            unpack_context->return_code = CWP_RC_VALUE_ERROR;
-            return 0;
+            unpack_context->return_code = CWP_RC_COERCED_VALUE;
+            return UINT16_MAX;
         }
     }
 
@@ -318,8 +318,8 @@ uint8_t cw_unpack_next_unsigned8 (cw_unpack_context* unpack_context)
             return (uint8_t)unpack_context->item.as.u64;
         else
         {
-            unpack_context->return_code = CWP_RC_VALUE_ERROR;
-            return 0;
+            unpack_context->return_code = CWP_RC_COERCED_VALUE;
+            return UINT8_MAX;
         }
     }
 

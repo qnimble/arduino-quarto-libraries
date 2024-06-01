@@ -100,7 +100,7 @@ void cw_pack_set_flush_handler (cw_pack_context* pack_context, pack_flush_handle
 
 
 void cw_pack_unsigned(cw_pack_context* pack_context, uint64_t i)
-{
+{    
     if (pack_context->return_code)
         return;
 

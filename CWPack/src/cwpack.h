@@ -45,6 +45,7 @@
 #define CWP_RC_TYPE_ERROR               -10
 #define CWP_RC_VALUE_ERROR              -11
 #define CWP_RC_WRONG_TIMESTAMP_LENGTH   -12
+#define CWP_RC_COERCED_VALUE            -13
 
 
 #ifdef __cplusplus
