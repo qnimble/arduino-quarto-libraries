@@ -169,23 +169,21 @@ static int handle_stream_unpack_underflow(struct cw_unpack_context* uc, unsigned
             suc->buffer_length = 2 * suc->buffer_length;
 
         void *new_buffer = realloc (uc->start, suc->buffer_length);
-        if (!new_buffer)
+        if (!new_buffer) {
             return CWP_RC_BUFFER_UNDERFLOW;
-
+        }
         uc->start = (uint8_t*)new_buffer;
     }
     uc->current = uc->start;
     uc->end = uc->start + remains;
-    //#warning broken, need to handle underflow
-    unsigned long newBytes = suc->buffer_length - remains;
-    if  ( (uint) suc->stream->available() < newBytes) {
+
+    if  ( (uint) suc->stream->available() < more - remains) {
+        //Should wait for more data here instead of error....
         return CWP_RC_END_OF_INPUT;
     }
 
-    //unsigned long l = fread(uc->end, 1, suc->buffer_length - remains, suc->file);    
-    unsigned long l = suc->stream->readBytes(uc->current,newBytes);    
+    unsigned long l = suc->stream->readBytes(uc->current+remains,more - remains);
     uc->end += l;
-
     return CWP_RC_OK;
 }
 
@@ -202,7 +200,7 @@ void init_stream_unpack_context (stream_unpack_context* suc, unsigned long initi
     suc->stream = stream;
     suc->buffer_length = buffer_length;
 
-    cw_unpack_context_init((cw_unpack_context*)suc, buffer, 0, &handle_stream_unpack_underflow);
+    cw_unpack_context_init((cw_unpack_context*)suc, buffer, buffer_length, &handle_stream_unpack_underflow);
 }
 
 
