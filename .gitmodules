@@ -28,3 +28,6 @@
 [submodule "FastCRC"]
 	path = FastCRC
 	url = https://github.com/FrankBoesing/FastCRC.git
+[submodule "eui"]
+	path = eui
+	url = git@github.com:qnimble/electricui-embedded.git
