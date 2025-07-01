@@ -25,3 +25,9 @@
 [submodule "qProtothreads"]
 	path = qProtothreads
 	url = git@github.com:qnimble/arduino-qprotothreads.git
+[submodule "FastCRC"]
+	path = FastCRC
+	url = https://github.com/FrankBoesing/FastCRC.git
+[submodule "eui"]
+	path = eui
+	url = git@github.com:qnimble/electricui-embedded.git
